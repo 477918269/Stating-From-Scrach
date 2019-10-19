@@ -74,29 +74,27 @@
 //	return 0;
 //}
 
-#include<iostream>
+//#include<iostream>
+//
+//using namespace std;
+//
+//class hungry
+//{
+//public:
+//
+//	static hungry* get_one()
+//	{
+//		return &once;
+//	}
+//private:
+//	hungry(){};
+//	
+//	hungry(const hungry& h) = delete;
+//	hungry& operator=(const hungry& h) = delete;
+//
+//	static hungry once;
+//
+//};
+//hungry hungry::once;
 
-using namespace std;
 
-class hungry
-{
-public:
-
-	static hungry* get_one()
-	{
-		return &once;
-	}
-private:
-	hungry(){};
-	
-	hungry(const hungry& h) = delete;
-	hungry& operator=(const hungry& h) = delete;
-
-	static hungry once;
-
-};
-hungry hungry::once;
-int main()
-{
-	return 0;
-}
