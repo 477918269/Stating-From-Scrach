@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<iomanip>
 using namespace std;
 
 
@@ -52,45 +53,32 @@ struct Piexel
 {
 public:
 	Piexel(int m, int n)//初始化图板
-		:v1(3, 0),
+		:Pixel(3, 255),
 		_n(n),
 		_m(m)
-
 	{
-		v2.resize(_n);
+		Sketchpad.resize(_n);
 		for (int i = 0; i < _n; i++)
 		{
 			for (int j = 0; j < _m; j++)
 			{
-				v2[i].push_back(v1);
+				Sketchpad[i].push_back(Pixel);
 			}
 		}
 	}
 
 	void draw(int N, int M, int r, int g, int b)//像素的填充
 	{
-
-		if ((M >= 0 && M < _m) || (N >= 0 && N < _n))
+		for (int i = 0; i < N; i++)
 		{
-			v2[N][M][0] = r;
-			v2[N][M][1] = g;
-			v2[N][M][2] = b;
-			
+			for (int j = 0; j < M; j++)
+			{
+				Sketchpad[i][j][0] = r;
+				Sketchpad[i][j][1] = g;
+				Sketchpad[i][j][2] = b;
+			}
 		}
-		else
-		{
-			cout << "输入错误，请重新输入" << endl;
-		}
-
 	}
-
-	int drop(int N, int M, int r, int g, int b)//退出条件
-	{
-		if (N == 'b' && M == 'i' && r == 'l' && g == 'i' && b == 'i')
-			return 1;
-		return 0;
-	}
-
 	void PrintGraph()//打印图版
 	{
 		for (int i = 0; i < _n; i++)
@@ -101,44 +89,41 @@ public:
 				{
 					if (k != 2)
 					{
-						cout << v2[i][j][k] << ",";
+						cout.width(5);
+						cout << Sketchpad[i][j][k] << ",";
 					}
 					else
 					{
-						cout << v2[i][j][k];
+						cout << Sketchpad[i][j][k];
 					}
 				}
 				cout << " ";
 			}
 			cout << endl;
-		}
-		
+		}	
 	}
-
 private:
-	vector<int> v1;
-	vector<vector<vector<int>>> v2;
+	Piexel& operator=(const Piexel&) = delete;
+	Piexel(const Piexel&) = delete;
+
+	vector<int> Pixel;//进行像素填充
+	vector<vector<vector<int>>> Sketchpad;//构建图板
 	int _n;
 	int _m;
 };
 
 int main()
 {
-	int N, M;
+	int N, M, n, m, r, g, b;
 	while (cin >> N >> M)//构建图版
 	{
-		Piexel p(N, M);
-		p.PrintGraph();
-		int n, m, r, g, b;
-		printf("如果你想退出，请输入bilii\n");
-		while (cin >> n >> m >> r >> g >> b)//循环构建图版
+		Piexel Object(N, M);
+		Object.PrintGraph();//打印画板
+		cin >> n >> m >> r >> g >> b;
 		{
-			if (1 == p.drop(n, m, r, g, b))
-				break;
-			p.draw(n, m, r, g, b);
-			p.PrintGraph();
+			Object.draw(n, m, r, g, b);//绘画矩阵
+			Object.PrintGraph();
 		}
-
 
 	}
 	system("pause");
